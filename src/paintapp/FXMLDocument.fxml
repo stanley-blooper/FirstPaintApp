@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paintapp.FXMLDocumentController">
+   <children>
+      <MenuBar prefHeight="19.0" prefWidth="600.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+                  <MenuItem mnemonicParsing="false" onAction="#saveFile" text="Save" />
+                  <MenuItem fx:id="openFile" mnemonicParsing="false" onAction="#openFile" text="Open" />
+                  <MenuItem fx:id="printFile" mnemonicParsing="false" onAction="#printFile" text="Print" />
+              <MenuItem fx:id="closeFile" mnemonicParsing="false" onAction="#closeFile" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <ToolBar layoutY="25.0" orientation="VERTICAL" prefHeight="376.0" prefWidth="142.0">
+        <items>
+          <Button mnemonicParsing="false" onAction="#setShape" text="Line" />
+            <Button mnemonicParsing="false" onAction="#setShape" text="Circle" />
+            <Button mnemonicParsing="false" onAction="#setShape" text="Rectangle" />
+            <Button mnemonicParsing="false" onAction="#setShape" text="Text" />
+            <Button mnemonicParsing="false" text="Fill" />
+            <Button mnemonicParsing="false" onAction="#setShape" text="Eraser" />
+            <Separator prefHeight="36.0" prefWidth="1.0" />
+            <Label prefHeight="7.0" prefWidth="35.0" text="Color:" />
+            <ColorPicker fx:id="mColorPicker" editable="true" onAction="#selectColor">
+               <value>
+                  <Color />
+               </value>
+            </ColorPicker>
+            <Label text="Width:" />
+            <Slider fx:id="mSlider" />
+        </items>
+      </ToolBar>
+      <Canvas fx:id="mCanvas" height="376.0" layoutX="150.0" layoutY="25.0" onMousePressed="#startShape" onMouseReleased="#startDraw" width="452.0" />
+   </children>
+</AnchorPane>
