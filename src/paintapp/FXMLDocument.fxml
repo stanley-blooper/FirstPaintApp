@@ -15,7 +15,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paintapp.FXMLDocumentController">
    <children>
-      <MenuBar prefHeight="19.0" prefWidth="600.0">
+      <MenuBar prefHeight="19.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
@@ -37,8 +37,9 @@
           </Menu>
         </menus>
       </MenuBar>
-      <ToolBar layoutY="25.0" orientation="VERTICAL" prefHeight="376.0" prefWidth="142.0">
+      <ToolBar layoutY="25.0" orientation="VERTICAL" prefHeight="376.0" prefWidth="142.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="25.0">
         <items>
+            <Button mnemonicParsing="false" onAction="#setShape" text="Draw" />
           <Button mnemonicParsing="false" onAction="#setShape" text="Line" />
             <Button mnemonicParsing="false" onAction="#setShape" text="Circle" />
             <Button mnemonicParsing="false" onAction="#setShape" text="Rectangle" />
@@ -56,6 +57,6 @@
             <Slider fx:id="mSlider" />
         </items>
       </ToolBar>
-      <Canvas fx:id="mCanvas" height="376.0" layoutX="150.0" layoutY="25.0" onMousePressed="#startShape" onMouseReleased="#startDraw" width="452.0" />
+      <Canvas fx:id="mCanvas" height="661.0" layoutX="148.0" layoutY="25.0" onMousePressed="#startShape" onMouseReleased="#startDraw" width="1371.0" AnchorPane.bottomAnchor="-286.0" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="-919.0" AnchorPane.topAnchor="25.0" />
    </children>
 </AnchorPane>

@@ -9,6 +9,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 
 /**
@@ -25,9 +27,12 @@ public class PaintApp extends Application {
         
         Scene scene = new Scene(root);
         
+        
+
         stage.setScene(scene);
+        
         stage.show();
-        stage.setTitle("Yerrr Stan's PaintShop!");
+        stage.setTitle("Paint");
         
     }
  

@@ -5,8 +5,11 @@
  */
 package paintapp;
 
+import java.awt.Image;
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,9 +21,11 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
+import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -33,11 +38,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class FXMLDocumentController implements Initializable {
 
     
-    private String selectedShape="LINE";
+    private String selectedShape="";
     private Color selectedColor=Color.BLACK;
     double srtX=0, srtY=0;
     double endX=0, endY=0;
-  
+    
     
     private Label label;
     @FXML
@@ -64,7 +69,10 @@ public class FXMLDocumentController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+      
+        
+        
+        
     }    
 
     @FXML
@@ -76,6 +84,8 @@ public class FXMLDocumentController implements Initializable {
             case "Rectangle": selectedShape="RECT";  break;
             case "Circle": selectedShape="CIRCLE";  break;
             case "Eraser": selectedShape="ERASER";  break;
+            case "Draw":  selectedShape="DRAW"; break;
+            
             
             
         }
@@ -100,29 +110,49 @@ public class FXMLDocumentController implements Initializable {
         endX=event.getX();
         endY=event.getY();
         GraphicsContext gc= mCanvas.getGraphicsContext2D();
-        if (selectedShape=="ERASER"){
+       /* if (selectedShape=="ERASER"){
             gc.setStroke(Color.WHITESMOKE);
             gc.setLineWidth(mSlider.getValue());
-            gc.strokeRect(srtX, srtY, endX, endX);
+            gc.strokeRect(srtX, srtY, endX, endY);
             
         }
-        else{   
+        else{  */ 
         gc.setStroke(selectedColor);
         System.out.println(""+selectedColor);
         gc.setLineWidth(mSlider.getValue());
         switch(selectedShape){
-            case    "LINE": gc.strokeLine(srtX, srtY, endX, endX);  break;
-            case    "RECT": gc.strokeRect(srtX, srtY, endX, endX); break;
-            case    "CIRCLE": gc.strokeOval(srtX, srtY, endX, endX);  break;
+            case    "LINE": gc.strokeLine(srtX, srtY, endX, endY);  break;
+            case    "RECT": gc.strokeRect(srtX, srtY, endX, endY); break;
+            case    "CIRCLE":  gc.strokeOval(srtX, srtY, endX-srtX, endY-srtY);  break;
+            case    "DRAW": {
+                    if (selectedShape == "DRAW")
+                    {    
+                    mCanvas.setOnMouseDragged(e-> {
+                    double size = mSlider.getValue()+10;
+                    double x = e.getX() - size /2;
+                    double y = e.getY() - size /2;
+                    gc.setFill(selectedColor);
+                    gc.fillRect(x, y, size, size);
+                   });
+                   }
+            }        break;        
+            case    "ERASER": {
+            gc.setStroke(Color.WHITESMOKE);
+            gc.setLineWidth(mSlider.getValue());
+            gc.strokeRect(srtX, srtY, endX, endY);
+            
+            
+        }   break;
+            }
            
         }
+         //gc.setLineWidth(mSlider.getValue());
         
         
         
-        }
         
         
-    }
+    
 
 
 
@@ -148,12 +178,16 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void saveFile(ActionEvent event) {
               
-    JFileChooser saveFile = new JFileChooser();
-    saveFile.showSaveDialog(null);      
+        try{
+            WritableImage snapshot = mCanvas.snapshot(null, null);
+            
+            ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png",new File("paint.png"));
+        }catch (Exception e){
+            System.out.println("Failed to save image: " + e);
+        }
 
     
-
     }
 
-    
-    }
+}
+  
