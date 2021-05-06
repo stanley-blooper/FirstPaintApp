@@ -110,13 +110,6 @@ public class FXMLDocumentController implements Initializable {
         endX=event.getX();
         endY=event.getY();
         GraphicsContext gc= mCanvas.getGraphicsContext2D();
-       /* if (selectedShape=="ERASER"){
-            gc.setStroke(Color.WHITESMOKE);
-            gc.setLineWidth(mSlider.getValue());
-            gc.strokeRect(srtX, srtY, endX, endY);
-            
-        }
-        else{  */ 
         gc.setStroke(selectedColor);
         System.out.println(""+selectedColor);
         gc.setLineWidth(mSlider.getValue());
@@ -137,6 +130,7 @@ public class FXMLDocumentController implements Initializable {
                    }
             }        break;        
             case    "ERASER": {
+                mCanvas.setOnMouseDragged(e-> {});
             gc.setStroke(Color.WHITESMOKE);
             gc.setLineWidth(mSlider.getValue());
             gc.strokeRect(srtX, srtY, endX, endY);
