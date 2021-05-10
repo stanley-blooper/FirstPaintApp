@@ -85,6 +85,7 @@ public class FXMLDocumentController implements Initializable {
             case "Circle": selectedShape="CIRCLE";  break;
             case "Eraser": selectedShape="ERASER";  break;
             case "Draw":  selectedShape="DRAW"; break;
+        
             
             
             
@@ -115,11 +116,17 @@ public class FXMLDocumentController implements Initializable {
         gc.setLineWidth(mSlider.getValue());
         switch(selectedShape){
             case    "LINE": gc.strokeLine(srtX, srtY, endX, endY);  break;
-            case    "RECT": gc.strokeRect(srtX, srtY, endX, endY); break;
-            case    "CIRCLE":  gc.strokeOval(srtX, srtY, endX-srtX, endY-srtY);  break;
-            case    "DRAW": {
+            case    "RECT": gc.strokeRect(srtX<endX?srtX:endX,
+                                        srtY<endY?srtY:endY,
+                                        Math.abs(endX-srtX),
+                                        Math.abs(endY-srtY)); break;
+            case    "CIRCLE":  gc.strokeOval(srtX<endX?srtX:endX,
+                                        srtY<endY?srtY:endY,
+                                        Math.abs(endX-srtX),
+                                        Math.abs(endY-srtY));  break;
+             case    "DRAW": {
                     if (selectedShape == "DRAW")
-                    {    
+                    {   
                     mCanvas.setOnMouseDragged(e-> {
                     double size = mSlider.getValue()+10;
                     double x = e.getX() - size /2;
@@ -128,16 +135,22 @@ public class FXMLDocumentController implements Initializable {
                     gc.fillRect(x, y, size, size);
                    });
                    }
-            }        break;        
-            case    "ERASER": {
-                mCanvas.setOnMouseDragged(e-> {});
-            gc.setStroke(Color.WHITESMOKE);
-            gc.setLineWidth(mSlider.getValue());
-            gc.strokeRect(srtX, srtY, endX, endY);
-            
-            
-        }   break;
+            }        break;
+            case    "ERASER":  {
+                    if (selectedShape == "ERASER")
+                    {   
+                    mCanvas.setOnMouseDragged(e-> {
+                    double size = mSlider.getValue()+10;
+                    double x = e.getX() - size /2;
+                    double y = e.getY() - size /2;
+                    gc.setFill(Color.WHITESMOKE);
+                    gc.fillRect(x, y, size, size);
+                   });
+                   break;}
+            }        break;
             }
+            
+            
            
         }
          //gc.setLineWidth(mSlider.getValue());

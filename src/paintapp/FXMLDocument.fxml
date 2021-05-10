@@ -43,8 +43,6 @@
           <Button mnemonicParsing="false" onAction="#setShape" text="Line" />
             <Button mnemonicParsing="false" onAction="#setShape" text="Circle" />
             <Button mnemonicParsing="false" onAction="#setShape" text="Rectangle" />
-            <Button mnemonicParsing="false" onAction="#setShape" text="Text" />
-            <Button mnemonicParsing="false" text="Fill" />
             <Button mnemonicParsing="false" onAction="#setShape" text="Eraser" />
             <Separator prefHeight="36.0" prefWidth="1.0" />
             <Label prefHeight="7.0" prefWidth="35.0" text="Color:" />
